@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   database:
-    container_name: mysqldb
+    container_name: mysql-database
     image: mysql:8.0
     restart: unless-stopped
     environment:
