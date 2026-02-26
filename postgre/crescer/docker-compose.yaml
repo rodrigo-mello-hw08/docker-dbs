@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  postgrescrescer:
+    image: postgres:14
+    container_name: postgres-crescer 
+    restart: always
+    environment:
+      POSTGRES_USER: root # trocar pelo user usado pelo crescer
+      POSTGRES_PASSWORD: root # trocar pela senha usada pelo crescer
+      POSTGRES_DB: postgresdb # trocar pela base de dados usada pelo crescer
+    ports:
+        - "5432:5432"
+    volumes:
+        - postgres-data:/var/lib/postgresql/data 
+
+  pgadmin4crescer:
+    image: dpage/pgadmin4:8
+    container_name: pgadmin-crescer
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@domain.com # login do pgAdmin
+      PGADMIN_DEFAULT_PASSWORD: admin # senha do pgAdmin
+    ports:
+        - "5050:80" # acesso no navegador: http://localhost:5050
+    volumes:
+        - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  postgres-data:
+    driver: local
+  pgadmin-data:
+    driver: local
+
+networks:
+  postgres_network:
+    driver: bridge
